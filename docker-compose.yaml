@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8.0-debian
+    container_name: ecom-mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 4987saidev0122++root307
+      MYSQL_DATABASE: ecom_fstuck
+      MYSQL_USER: saidev
+      MYSQL_PASSWORD: saidev0122++
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - default
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    restart: always
+    ports:
+      - 8091:80
+    environment:
+      - PMA_ARBITRARY:1
+      - PMA_HOST:mysql
+      - MYSQL_USERNAME:saidev
+      - MYSQL_ROOT_PASSWORD:4987saidev0122++root307
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    networks:
+      - default
+
+volumes:
+  mysql-data:
